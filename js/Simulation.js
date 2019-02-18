@@ -1,35 +1,39 @@
+import { Object } from './tree-structure/Object.js';
+
 export class Simulation
 {
   constructor(container)
   {
     this.container = container
     this.cy = null;
-    this.nodeRoot = [ // list of graph elements to start with
-      { // node a
-        data: { id: 'a' }
-      },
-      { // node b
-        data: { id: 'b' }
-      },
-      { // node c
-        data: { id: 'c' }
-      },
-      { // edge ab
-        data: { id: 'ab', source: 'a', target: 'b' }
-      },
-      { // edge ab
-        data: { id: 'ac', source: 'a', target: 'c' }
-      }
-    ];
+    this.roots = [];
+  }
 
-    this.render();
+  update()
+  {
+    if(this.cy !== null)
+    {
+      this.cy.remove('*');
+      this.cy.add(this.convertRootsToCyNodes());
+      this.cy.layout({name: 'breadthfirst'}).run();
+    }
+  }
+
+  addRoot(root)
+  {
+    this.roots.push(root);
+
+    if(this.cy !== null)
+    {
+      this.cy.add(root.convertToCyNodes());
+    }
   }
 
   render()
   {
     this.cy = cytoscape({
       container: this.container,
-      elements: this.nodeRoot,
+      elements: this.convertRootsToCyNodes(),
       style: [ // the stylesheet for the graph
         {
           selector: 'node',
@@ -55,5 +59,18 @@ export class Simulation
         rows: 1
       }
     });
+  }
+
+  convertRootsToCyNodes()
+  {
+    let nodes = [];
+    let nodesIn = [];
+
+    this.roots.forEach(function(element)
+    {
+      element.convertToCyNodes(nodes, nodesIn);
+    });
+
+    return nodes;
   }
 }
