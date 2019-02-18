@@ -6,7 +6,8 @@ export class Simulation
   {
     this.container = container
     this.cy = null;
-    this.roots = [];
+    this.root = null;
+    this.objectNodes = [];
   }
 
   update()
@@ -19,9 +20,14 @@ export class Simulation
     }
   }
 
-  addRoot(root)
+  setRoot(root)
   {
-    this.roots.push(root);
+    this.root = root;
+  }
+
+  addObjectNode(objectNode)
+  {
+    this.objectNodes.push(objectNode);
 
     if(this.cy !== null)
     {
@@ -66,7 +72,7 @@ export class Simulation
     let nodes = [];
     let nodesIn = [];
 
-    this.roots.forEach(function(element)
+    this.objectNodes.forEach(function(element)
     {
       element.convertToCyNodes(nodes, nodesIn);
     });
