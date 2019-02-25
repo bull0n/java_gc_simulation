@@ -16,8 +16,13 @@ export class Simulation
     {
       this.cy.remove('*');
       this.cy.add(this.convertRootsToCyNodes());
-      this.cy.layout({name: 'breadthfirst'}).run();
+      this.cy.layout(this.getLayout()).run();
     }
+  }
+
+  getLayout()
+  {
+    return {name: 'breadthfirst', roots : `#${this.root.id}`};
   }
 
   setRoot(root)
@@ -33,6 +38,22 @@ export class Simulation
     {
       this.cy.add(root.convertToCyNodes());
     }
+  }
+
+  markTree()
+  {
+    this.root.mark();
+  }
+
+  deleteUnmarked()
+  {
+    this.objectNodes.forEach(function(element)
+    {
+      if(element.marked)
+      {
+
+      }
+    });
   }
 
   render()
@@ -60,10 +81,7 @@ export class Simulation
         }
       ],
 
-      layout: {
-        name: 'breadthfirst',
-        rows: 1
-      }
+      layout: this.getLayout()
     });
   }
 

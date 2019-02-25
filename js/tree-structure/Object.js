@@ -7,8 +7,10 @@ export class Object
     this.id = id;
     this.group = 'nodes';
     this.references = [];
+    this.marked = false;
+    this.simulation = simulation;
 
-    simulation.objectNodes.push(this);
+    this.simulation.objectNodes.push(this);
   }
 
   addChildrenObject(object)
@@ -33,6 +35,17 @@ export class Object
         cyNodes.push(element.convertToCyNodes());
         nodesIn.push(element)
       }
+    });
+  }
+
+  mark()
+  {
+    this.marked = false;
+
+    this.simulation.cy.nodes(`#${this.id}`).animate({
+        style: { 'background-color': 'red' }
+      }, {
+        duration: 300
     });
   }
 }

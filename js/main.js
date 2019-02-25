@@ -15,15 +15,35 @@ function main()
 
   simulation.render();
   simulation.update();
+
+  simulation.markTree;
 }
 
 function buildObjects(simulation)
 {
   let a = new Object('a', simulation);
+  let b = new Object('b', simulation);
+  let c = new Object('c', simulation);
 
-  a.addChildrenObject(new Object('b', simulation));
-  a.addChildrenObject(new Object('c', simulation));
+  a.addChildrenObject(b);
+  a.addChildrenObject(c);
+
+
+  b.addChildrenObject(new Object('d', simulation));
+  let e = new Object('e', simulation);
+  b.addChildrenObject(e);
+
+  c.addChildrenObject(new Object('f', simulation));
+  c.addChildrenObject(new Object('g', simulation));
+  c.addChildrenObject(new Object('h', simulation));
+
+  e.addChildrenObject(new Object('i', simulation));
 
   simulation.addObjectNode(new Object('o', simulation));
+
   simulation.addObjectNode(a);
+
+  console.log(a);
+
+  simulation.setRoot(a);
 }
