@@ -8,15 +8,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function main()
 {
   let divMarkSweep = document.getElementById('mark-sweep');
+  let divListObjects = document.getElementById('list-objects-container');
 
-  let simulation = new Simulation(divMarkSweep);
+  let simulation = new Simulation(divMarkSweep, divListObjects);
 
   buildObjects(simulation);
 
   simulation.render();
   simulation.update();
 
-  simulation.markTree;
+  simulation.markTree();
 }
 
 function buildObjects(simulation)
@@ -27,7 +28,6 @@ function buildObjects(simulation)
 
   a.addChildrenObject(b);
   a.addChildrenObject(c);
-
 
   b.addChildrenObject(new Object('d', simulation));
   let e = new Object('e', simulation);
@@ -42,8 +42,6 @@ function buildObjects(simulation)
   simulation.addObjectNode(new Object('o', simulation));
 
   simulation.addObjectNode(a);
-
-  console.log(a);
 
   simulation.setRoot(a);
 }

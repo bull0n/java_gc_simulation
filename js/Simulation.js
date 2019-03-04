@@ -2,9 +2,10 @@ import { Object } from './tree-structure/Object.js';
 
 export class Simulation
 {
-  constructor(container)
+  constructor(containerTree, containerListObject)
   {
-    this.container = container
+    this.containerTree = containerTree;
+    this.containerListObject = containerListObject;
     this.cy = null;
     this.root = null;
     this.objectNodes = [];
@@ -30,6 +31,32 @@ export class Simulation
     this.root = root;
   }
 
+  displayListObject()
+  {
+    if(this.containerListObject)
+    {
+      while (this.containerListObject.firstChild) {
+        this.containerListObject.removeChild(this.containerListObject.firstChild);
+      }
+
+      let listContainer = document.createElement('ul');
+      this.objectNodes.forEach(function(element)
+      {
+        let li = document.createElement('li');
+        li.innerHTML = element.id;
+
+        if(element.marked)
+        {
+          li.className = "marked";
+        }
+
+        listContainer.appendChild(li);
+      });
+
+      this.containerListObject.appendChild(listContainer);
+    }
+  }
+
   addObjectNode(objectNode)
   {
     this.objectNodes.push(objectNode);
@@ -42,7 +69,8 @@ export class Simulation
 
   markTree()
   {
-    this.root.mark();
+    this.root.markRecursive();
+    this.displayListObject();
   }
 
   deleteUnmarked()
@@ -59,7 +87,7 @@ export class Simulation
   render()
   {
     this.cy = cytoscape({
-      container: this.container,
+      container: this.containerTree,
       elements: this.convertRootsToCyNodes(),
       style: [ // the stylesheet for the graph
         {
@@ -83,6 +111,8 @@ export class Simulation
 
       layout: this.getLayout()
     });
+
+    this.displayListObject();
   }
 
   convertRootsToCyNodes()

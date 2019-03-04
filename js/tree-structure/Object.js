@@ -38,9 +38,20 @@ export class Object
     });
   }
 
+  markRecursive()
+  {
+    this.mark();
+    console.log(this.id);
+
+    this.references.forEach(function(element)
+    {
+      element.target.markRecursive();
+    });
+  }
+
   mark()
   {
-    this.marked = false;
+    this.marked = true;
 
     this.simulation.cy.nodes(`#${this.id}`).animate({
         style: { 'background-color': 'red' }
