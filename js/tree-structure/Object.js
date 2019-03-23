@@ -41,12 +41,29 @@ export class Object
   markRecursive()
   {
     this.mark();
-    console.log(this.id);
 
     this.references.forEach(function(element)
     {
       element.target.markRecursive();
     });
+  }
+
+  markRecursive2()
+  {
+    let hasMarked = false;
+
+    for(let i = 0; i < this.references.length && !hasMarked; i++)
+    {
+      hasMarked = this.references[i].target.markRecursive2();
+    }
+
+    if(!hasMarked && !this.marked)
+    {
+      this.mark();
+      hasMarked = true;
+    }
+
+    return hasMarked
   }
 
   mark()

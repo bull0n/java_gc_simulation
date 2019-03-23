@@ -67,6 +67,13 @@ export class Simulation
     }
   }
 
+  nextMarkTree()
+  {
+    let result = this.root.markRecursive2();
+    this.displayListObject();
+    return result;
+  }
+
   markTree()
   {
     this.root.markRecursive();
@@ -75,13 +82,15 @@ export class Simulation
 
   deleteUnmarked()
   {
-    this.objectNodes.forEach(function(element)
+    for(let i = 0; i < this.objectNodes.length; i++)
     {
-      if(element.marked)
+      if(!this.objectNodes[i].marked)
       {
-
+        this.objectNodes.splice(i, 1);
       }
-    });
+    }
+
+    this.render();
   }
 
   render()

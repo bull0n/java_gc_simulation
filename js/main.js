@@ -17,7 +17,12 @@ function main()
   simulation.render();
   simulation.update();
 
-  simulation.markTree();
+  let notFinished = true;
+  while(notFinished)
+  {
+    notFinished = simulation.nextMarkTree();
+  }
+  simulation.deleteUnmarked();
 }
 
 function buildObjects(simulation)
@@ -33,15 +38,17 @@ function buildObjects(simulation)
   let e = new Object('e', simulation);
   b.addChildrenObject(e);
 
-  c.addChildrenObject(new Object('f', simulation));
+  let f = new Object('f', simulation);
+
+  b.addChildrenObject(f)
+
+  c.addChildrenObject(f);
   c.addChildrenObject(new Object('g', simulation));
   c.addChildrenObject(new Object('h', simulation));
 
   e.addChildrenObject(new Object('i', simulation));
 
-  simulation.addObjectNode(new Object('o', simulation));
-
-  simulation.addObjectNode(a);
+  new Object('o', simulation)
 
   simulation.setRoot(a);
 }
