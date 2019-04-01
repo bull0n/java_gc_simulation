@@ -76,9 +76,14 @@ export class Simulation
 
   copyNext()
   {
-    let node = this.root1.getNextLeafForCopy();
+    if(this.root1 === null)
+    {
+      return false;
+    }
 
-    let i = this.objectNodes1.indexOf(node)
+    let node = this.root1.getNextLeafForCopy();
+    let i = this.objectNodes1.indexOf(node);
+
     if(i > -1)
     {
       this.objectNodes1.splice(i, 1);
@@ -86,7 +91,26 @@ export class Simulation
 
     this.copyToOtherZone(node);
 
+    if(node === this.root1)
+    {
+      this.root1 = null;
+    }
+
+    for(let i = 0; i < this.objectNodes1.length; i++)
+    {
+      for(let j = 0; j < this.objectNodes1[i].references.length; j++)
+      {
+        let reference = this.objectNodes1[i].references[j];
+        if(reference.target == node)
+        {
+          reference.target = null;
+        }
+      }
+    }
+
     this.update();
+
+    return true;
   }
 
   copyToOtherZone(node)
@@ -94,8 +118,7 @@ export class Simulation
     for(let i = 0; i < node.references.length; i++)
     {
       let targetId = node.references[i].id.split('-')[1];
-      console.log(targetId);
-      console.log(node.id);
+
       for(let j = 0; j < this.objectNodes2.length; j++)
       {
         if(this.objectNodes2[j].id == targetId)
@@ -106,6 +129,8 @@ export class Simulation
       }
     }
 
+    this.root2 = node;
+
     this.objectNodes2.push(node);
   }
 
@@ -113,6 +138,7 @@ export class Simulation
   {
     this.objectNodes1 = [];
     this.root1 = null;
+    this.update();
   }
 
   render()
@@ -126,6 +152,7 @@ export class Simulation
     return cytoscape({
       container: containerTree,
       elements: this.convertRootsToCyNodes(objectNodes),
+      maxZoom: 1,
       style: [ // the stylesheet for the graph
         {
           selector: 'node',

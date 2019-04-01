@@ -45,9 +45,18 @@ function initSimulation()
 
 function nextStep()
 {
-  if(simulation["root1"])
+  if(simulation["objectNodes1"])
   {
-    simulation.copyNext();
+    if(!simulation.copyNext())
+    {
+      document.getElementById('action').innerHTML = 'Suppression des objets non-copiés';
+      simulation.deleteNotCopied();
+      document.getElementById('next').disabled = true;
+    }
+    else
+    {
+      document.getElementById('action').innerHTML = 'Objet copié';
+    }
   }
   else
   {
@@ -84,7 +93,7 @@ function buildObjects(simulation)
 
   let f = new Object('f', simulation);
 
-  //b.addChildrenObject(f)
+  b.addChildrenObject(f)
 
   c.addChildrenObject(f);
   c.addChildrenObject(new Object('g', simulation));
