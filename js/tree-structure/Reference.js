@@ -10,12 +10,23 @@ export class Reference
 
   convertToCyNodes()
   {
+    let targetId;
+
+    if(this.target === null)
+    {
+      targetId = null;
+    }
+    else
+    {
+      targetId = this.target.id;
+    }
+
     return {
       group: this.group,
       data : {
         id : this.id,
         source : this.source.id,
-        target : this.target.id
+        target : targetId
       }
     };
   }

@@ -10,7 +10,7 @@ export class Object
     this.marked = false;
     this.simulation = simulation;
 
-    this.simulation.objectNodes.push(this);
+    this.simulation.getObjectNodes().push(this);
   }
 
   addChildrenObject(object)
@@ -30,10 +30,13 @@ export class Object
 
     this.references.forEach(function(element)
     {
-      if(nodesIn.includes(element) !== undefined)
+      if(element.target !== null)
       {
-        cyNodes.push(element.convertToCyNodes());
-        nodesIn.push(element)
+        if(nodesIn.includes(element) !== undefined)
+        {
+          cyNodes.push(element.convertToCyNodes());
+          nodesIn.push(element)
+        }
       }
     });
   }
@@ -75,5 +78,40 @@ export class Object
       }, {
         duration: 300
     });
+  }
+
+  getNextLeafForCopy(reference = null)
+  {
+    if(this.references.length === 0)
+    {
+      return this.deleteTarget(reference);
+    }
+    else
+    {
+      for(let i = 0; i < this.references.length; i++)
+      {
+        let child = this.references[i].target;
+
+        if(child !== null)
+        {
+          return child.getNextLeafForCopy(this.references[i]);
+        }
+
+        if(i == this.references.length - 1)
+        {
+          return this.deleteTarget(reference);
+        }
+      }
+    }
+  }
+
+  deleteTarget(reference)
+  {
+    if(reference !== null)
+    {
+      reference.target = null;
+    }
+
+    return this
   }
 }

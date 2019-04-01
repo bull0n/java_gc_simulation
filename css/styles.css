@@ -1,9 +1,9 @@
-#mark-sweep, #list-objects
+#mark-sweep, #list-objects, .memory-zones
 {
   float: left;
 }
 
-#mark-sweep
+#mark-sweep, #tree1, #tree2
 {
   width: 500px;
   height: 500px;

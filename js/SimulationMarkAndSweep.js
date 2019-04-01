@@ -21,6 +21,11 @@ export class Simulation
     }
   }
 
+  getObjectNodes()
+  {
+    return this.objectNodes;
+  }
+
   getLayout()
   {
     return {name: 'breadthfirst', roots : `#${this.root.id}`};

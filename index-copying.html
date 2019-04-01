@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Simulation GC Java</title>
+
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+
+    <script src="lib/cytoscape.min.js"></script>
+    <script>
+      var isCopying = true;
+    </script>
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <h1>Copying</h1>
+    <div class="memory-zones">
+      <h2>Zone mémoire 1</h2>
+      <div id="tree1">
+      </div>
+    </div>
+    <div class="memory-zones">
+      <h2>Zone mémoire 2</h2>
+      <div id="tree2">
+      </div>
+    </div>
+    <div id="controls">
+      <p>
+        Etape : <span id="action">-</span>
+      </p>
+      <button id="reset">Réinitialiser la simulation</button>
+      <button id="next">Suivant</button>
+    </div>
+  </body>
+</html>
