@@ -1,3 +1,7 @@
+* {
+  font-family: Helvetica, Arial, Sans-Serif;
+}
+
 #mark-sweep, #list-objects, .memory-zones
 {
   float: left;
