@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Simulation GC</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Simulation Garbage Collector Java</h1>
+					<h6>Lucas Bulloni - Conception OS</h6>
+				</section>
+				<section>
+					<h4>Sommaire</h4>
+
+					<ul>
+						<li>Introduction</li>
+						<li>Algorithme Mark & Sweep</li>
+						<li>Algorithme Copy</li>
+						<li>Démonstration</li>
+						<li>Améliorations possibles</li>
+						<li>Conclusion</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Introduction</h4>
+
+					<ul>
+						<li>Algorithme pour le garbace collector</li>
+						<li>Simulation Javascript</li>
+						<li>Mémoire sous forme d'arbre
+							<ul>
+								<li>Valeurs : Noeuds</li>
+								<li>Référence : Edge</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Algorithme Mark & Sweep</h4>
+					<ul>
+						<li>Parcours la mémoire en arbre</li>
+						<li>Chaque noeud parcouru est marqué</li>
+						<li>Suppression des noeuds non-marqués</li>
+						<li>A besoin de garder la listes de tous les objets (Fuite de mémoire)</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Algorithme Copying</h4>
+					<ul>
+						<li>Parcours de la mémoire en arbre</li>
+						<li>2 Zones mémoires</li>
+						<li>Au parcours de l'arbre, on copie dans la zone 2</li>
+						<li>Suppression de la zone de mémoire 1</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Démonstration</h1>
+				</section>
+				<section>
+					<h4>Amélioration possible</h4>
+					<ul>
+						<li>Affiché la racine</li>
+						<li>Avoir plusieurs racines</li>
+						<li>Bouton retour</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Conclusion</h4>
+
+					<ul>
+						<li>Cahier des charges rempli</li>
+						<li>Meilleur compréhension du parcours de la mémoire et des algorithmes</li>
+						<li>Fonctionnel, pas de bug connu</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Questions ? </h2>
+				</section>
+				<section>
+					<h4>Références</h4>
+					<ul>
+						<li>Cours J2EE - Monsieur Chèvre, 28.04.2019</li>
+						<li><a href="http://js.cytoscape.org/">Cytoscape.js</a> - Dessin d'arbre, 28.04.2019</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true,
+				slideNumber: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
